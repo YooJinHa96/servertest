@@ -14,7 +14,7 @@ const corsOptions = {
   credentials: true, // 쿠키를 허용합니다
 };
 
-app.listen(8888, () => {
+app.listen(8000, () => {
   console.log("임시 서버 시작");
 });
 app.use(express.json()); // JSON 요청 본문을 파싱하는 미들웨어 추가
