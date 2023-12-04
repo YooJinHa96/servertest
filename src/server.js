@@ -4,6 +4,8 @@ const express = require("express");
 const cors = require("cors");
 const { users, findUserByUsername } = require("./userStore"); // store.js에서 함수 임포트
 const { v4: uuidv4 } = require("uuid");
+const path = require("path");
+const fs = require("fs");
 const REFRESH_SECRET = uuidv4();
 const ACCESS_SECRET = uuidv4();
 const app = express();
@@ -19,6 +21,9 @@ app.use(express.json()); // JSON 요청 본문을 파싱하는 미들웨어 추�
 app.use(cookieParser());
 // 모든 출처에 대한 요청을 허용
 app.use(cors(corsOptions));
+
+app.use("/images", express.static(path.join(__dirname, "imgs")));
+
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
@@ -74,4 +79,31 @@ app.get("/api/refresh", (req, res) => {
 });
 app.get("/api/getTest", (req, res) => {
   console.log(req.headers["accesstoken"]);
+});
+app.get("/api/images", (req, res) => {
+  const imageDir = path.join(__dirname, "imgs");
+
+  // 디렉토리 읽기
+  fs.readdir(imageDir, (err, files) => {
+    if (err) {
+      res.status(500).send("Error reading directory");
+      return;
+    }
+    console.log(files);
+    fileList = [
+      "수정.jpg",
+      "수정프로필.jpg",
+      "민지.jpeg",
+      "민지프로필.jpg",
+      "사나.jpg",
+      "사나프로필.jpg",
+      "사쿠라.jpg",
+      "사크로프로필.jpg",
+      "은채.gif",
+      "은채프로필.jpg",
+    ];
+    // 파일 이름과 확장자를 함께 전송
+
+    res.json(fileList);
+  });
 });
