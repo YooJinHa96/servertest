@@ -6,6 +6,7 @@ const { users, findUserByUsername } = require("./userStore"); // store.js에서 
 const { v4: uuidv4 } = require("uuid");
 const path = require("path");
 const fs = require("fs");
+const tempKeywordAlbumList = require("./tempKeywordAlbumList");
 const REFRESH_SECRET = uuidv4();
 const ACCESS_SECRET = uuidv4();
 const app = express();
@@ -106,4 +107,9 @@ app.get("/api/images", (req, res) => {
 
     res.json(fileList);
   });
+});
+app.get("/api/album", (req, res) => {
+  const albumList = tempKeywordAlbumList;
+  console.log(albumList);
+  res.json(albumList);
 });
