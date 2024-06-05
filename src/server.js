@@ -10,6 +10,7 @@ const tempKeywordAlbumList = require("./tempKeywordAlbumList");
 const REFRESH_SECRET = uuidv4();
 const ACCESS_SECRET = uuidv4();
 const app = express();
+const albumList = tempKeywordAlbumList;
 const corsOptions = {
   origin: "http://localhost:3000", // 클라이언트 도메인
   credentials: true, // 쿠키를 허용합니다
@@ -109,7 +110,14 @@ app.get("/api/images", (req, res) => {
   });
 });
 app.get("/api/album", (req, res) => {
-  const albumList = tempKeywordAlbumList;
-  console.log(albumList);
   res.json(albumList);
+});
+app.get("/api/albumSearch", (req, res) => {
+  const search = req.query.search;
+  // albumList에서 search 키워드를 포함하는 앨범을 찾아서 반환
+  const searchAlbumList = albumList.filter((album) =>
+    album.title.includes(search)
+  );
+  console.log(searchAlbumList);
+  res.json(searchAlbumList);
 });

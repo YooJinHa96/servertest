@@ -1,3 +1,4 @@
+const { uuid } = require("uuidv4");
 const kr = ["장래", "활력소", "자취", "전자파", "티맥스", "마산"];
 const en = ["Tmax", "undermine", "tie", "mark", "maple", "faker"];
 
@@ -53,6 +54,7 @@ const tempKeywordAlbumList = [];
 for (let i = 0; i < 7; i++) {
   const _album = {
     ...album,
+    albumId: uuid(),
     title: getRandomWord(),
     like: Math.floor(Math.random() * 1000) + 1,
     hits: Math.floor(Math.random() * 1000) + 1,
