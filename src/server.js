@@ -114,10 +114,11 @@ app.get("/api/album", (req, res) => {
 });
 app.get("/api/albumSearch", (req, res) => {
   const search = req.query.search;
-  // albumList에서 search 키워드를 포함하는 앨범을 찾아서 반환
+
+  // albumList에서 search 키워드를 포함하는 앨범을 찾아서 1반환
   const searchAlbumList = albumList.filter((album) =>
-    album.title.includes(search)
+    album.title.toLowerCase().includes(search.toLowerCase())
   );
-  console.log(searchAlbumList);
+
   res.json(searchAlbumList);
 });
